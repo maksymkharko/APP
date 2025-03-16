@@ -1,0 +1,1506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Меню</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+    <link rel="manifest" href="/manifest.json">
+    <link rel="apple-touch-icon" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/icons/icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/icons/icon-180x180.png">
+    <link rel="apple-touch-icon" sizes="167x167" href="/icons/icon-167x167.png">
+    <link rel="apple-touch-startup-image" href="/icons/splash-2048x2732.png" media="(device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1668x2388.png" media="(device-width: 834px) and (device-height: 1194px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1536x2048.png" media="(device-width: 768px) and (device-height: 1024px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-1125x2436.png" media="(device-width: 375px) and (device-height: 812px) and (-webkit-device-pixel-ratio: 3) and (orientation: portrait)">
+    <link rel="apple-touch-startup-image" href="/icons/splash-828x1792.png" media="(device-width: 414px) and (device-height: 896px) and (-webkit-device-pixel-ratio: 2) and (orientation: portrait)">
+    <style>
+        /* Основные переменные */
+        :root {
+            --safe-area-inset-top: env(safe-area-inset-top, 0px);
+            --safe-area-inset-bottom: env(safe-area-inset-bottom, 0px);
+            --status-bar-height: 34px;
+            --nav-bar-height: 60px;
+            
+            /* Цвета */
+            --background-primary: #1a1a1a;
+            --background-secondary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.7);
+            --accent-color: #007AFF;
+            
+            /* Анимации */
+            --transition-speed: 0.2s;
+            --primary-gradient: linear-gradient(135deg, #6e8efb, #4776e6);
+            --secondary-gradient: linear-gradient(135deg, #ff9966, #ff5e62);
+            --success-gradient: linear-gradient(135deg, #2af598, #009efd);
+            --warning-gradient: linear-gradient(135deg, #ffd452, #ff6b6b);
+            --info-gradient: linear-gradient(135deg, #4facfe, #00f2fe);
+            --dark-gradient: linear-gradient(135deg, #2c3e50, #3498db);
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.14);
+            
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Сброс стилей */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Основные стили */
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--background-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            min-height: -webkit-fill-available;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Статус бар */
+        .status-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--status-bar-height);
+            padding: calc(var(--safe-area-inset-top)) 16px 0;
+            background: rgba(32, 33, 36, 0.95);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .status-bar__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+            padding: 0 8px;
+        }
+
+        .status-bar__time {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            min-width: 45px;
+        }
+
+        .status-bar__title {
+            flex: 1;
+            text-align: center;
+            margin: 0 8px;
+        }
+
+        .status-bar__weekday {
+            font-size: 14px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.8);
+            min-width: 45px;
+            text-align: right;
+        }
+
+        .page-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: opacity var(--transition-speed);
+            margin: 0;
+            padding: 0;
+        }
+
+        .page-title:active {
+            opacity: 0.7;
+        }
+
+        .title-input {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 250px;
+            font-size: 20px;
+            font-weight: 600;
+            text-align: center;
+            background: var(--background-secondary);
+            border: none;
+            border-radius: 8px;
+            color: var(--text-primary);
+            padding: 8px 12px;
+            display: none;
+        }
+
+        .title-input:focus {
+            outline: none;
+        }
+
+        /* Основной контейнер */
+        .main-container {
+            flex: 1;
+            margin-top: calc(var(--status-bar-height) + 50px);
+            margin-bottom: calc(var(--nav-bar-height) + var(--safe-area-inset-bottom));
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            padding: 8px 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            width: 100%;
+        }
+
+        /* Стили для главной страницы */
+        .welcome-section {
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.1), rgba(0, 122, 255, 0.05));
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 122, 255, 0.1);
+        }
+
+        .welcome-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            background: linear-gradient(135deg, #007AFF, #00C6FF);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .welcome-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .action-button {
+            background: var(--background-secondary);
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            color: var(--text-primary);
+            transition: all var(--transition-speed);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .action-button:active {
+            transform: scale(0.98);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .action-button i {
+            font-size: 24px;
+            color: var(--accent-color);
+        }
+
+        .action-button span {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .recent-apps {
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title i {
+            color: var(--accent-color);
+        }
+
+        /* Кнопки управления */
+        .control-buttons {
+            width: 100%;
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 0 12px;
+            position: fixed;
+            top: calc(var(--status-bar-height) + 8px);
+            right: 0;
+            z-index: 999;
+        }
+
+        .control-button {
+            width: 32px;
+            height: 32px;
+            background: rgba(60, 60, 67, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: none;
+            border-radius: 16px;
+            color: var(--text-primary);
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .control-button span {
+            display: none;
+        }
+
+        .control-button:active {
+            transform: scale(0.96);
+            opacity: 0.8;
+        }
+
+        .control-button.edit {
+            display: flex;
+        }
+
+        .control-button.add {
+            background: rgba(60, 60, 67, 0.7);
+        }
+
+        /* Сетка приложений */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 8px;
+            padding: 5px;
+            margin: 0 auto;
+            width: 90%;
+            max-width: 300px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .edit-mode .apps-grid {
+            gap: 14px;
+            padding: 14px;
+        }
+
+        .app-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            width: 81px;
+            height: 82px;
+            padding: 8px 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            background: rgba(40, 40, 40, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            will-change: transform;
+            margin: 0 auto;
+        }
+
+        .app-item:active {
+            transform: scale(0.96);
+            background: rgba(60, 60, 60, 0.6);
+        }
+
+        .app-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 21px;
+            color: var(--accent-color);
+            transition: all 0.2s ease;
+            background: var(--background-secondary);
+            border-radius: 13px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            flex-shrink: 0;
+        }
+
+        .app-name {
+            font-size: 12px;
+            text-align: center;
+            color: var(--text-primary);
+            width: 100%;
+            max-width: 78px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 2px 4px;
+            line-height: 1.2;
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        /* Режим редактирования */
+        .edit-mode .app-item {
+            animation: float 2s ease-in-out infinite, shake 3s ease-in-out infinite;
+        }
+
+        .delete-button {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 14px;
+            background: #FF3B30;
+            color: white;
+            border: 1.5px solid var(--background-primary);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 19px;
+            top: -8px;
+            right: -8px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .edit-button {
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            border-radius: 14px;
+            background: var(--accent-color);
+            color: white;
+            border: 1.5px solid var(--background-primary);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            top: -6px;
+            left: -6px;
+            z-index: 1;
+            cursor: pointer;
+        }
+
+        .edit-mode .delete-button,
+        .edit-mode .edit-button {
+            display: flex;
+        }
+
+        .edit-mode .app-item:hover .delete-button,
+        .edit-mode .app-item:hover .edit-button {
+            transform: scale(1.1);
+        }
+
+        .app-item.dragging {
+            opacity: 0.9;
+            transform: scale(1.05);
+            animation: none;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+            cursor: grabbing;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .app-item.drag-over {
+            transform: scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 12px rgba(0, 122, 255, 0.3);
+        }
+
+        .app-item.drag-ghost {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+
+        /* Модальные окна */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 1999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .edit-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--background-primary);
+            padding: 20px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 320px;
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .edit-modal.active {
+            display: flex;
+        }
+
+        .edit-modal input {
+            background: var(--background-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 12px;
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .edit-modal input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+        }
+
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 8px;
+            max-height: 200px;
+            overflow-y: auto;
+            padding: 4px;
+            border-radius: 12px;
+            background: var(--background-secondary);
+        }
+
+        .icon-option {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: var(--text-primary);
+            background: var(--background-primary);
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .icon-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .icon-option.selected {
+            color: var(--accent-color);
+            background: rgba(0, 122, 255, 0.15);
+        }
+
+        .confirm-button {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            background: var(--accent-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .confirm-button:hover {
+            transform: scale(1.05);
+            background: #0A84FF;
+        }
+
+        .confirm-button:active {
+            transform: scale(0.96);
+        }
+
+        .confirm-button i {
+            font-size: 16px;
+        }
+
+        /* Навигационная панель */
+        .nav-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: calc(var(--nav-bar-height) + var(--safe-area-inset-bottom));
+            padding-bottom: var(--safe-area-inset-bottom);
+            background: var(--background-primary);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid var(--background-secondary);
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: color var(--transition-speed);
+            padding: 8px 0;
+        }
+
+        .nav-item.active {
+            color: var(--accent-color);
+        }
+
+        .nav-item i {
+            font-size: 22px;
+        }
+
+        .nav-item span {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Утилиты */
+        .hidden {
+            display: none !important;
+        }
+
+        /* Скроллбар */
+        ::-webkit-scrollbar {
+            width: 0px;
+        }
+
+        /* Анимации */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes shake {
+            0% { transform: rotate(0deg); }
+            25% { transform: rotate(-0.5deg); }
+            75% { transform: rotate(0.5deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-2px); }
+            100% { transform: translateY(0); }
+        }
+
+        /* Медиа запросы для темной темы */
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --background-primary: #000000;
+                --background-secondary: #1a1a1a;
+            }
+        }
+
+        /* Модальное окно скрытых приложений */
+        .hidden-apps-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--background-primary);
+            padding: 20px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 320px;
+            z-index: 2000;
+            display: none;
+            flex-direction: column;
+            gap: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .hidden-apps-modal.active {
+            display: flex;
+        }
+
+        .hidden-apps-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .hidden-apps-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .hidden-apps-close {
+            position: absolute;
+            top: -12px;
+            right: -12px;
+            width: 32px;
+            height: 32px;
+            border-radius: 16px;
+            background: var(--accent-color);
+            border: none;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden-apps-close:hover {
+            transform: scale(1.05);
+            background: #0A84FF;
+        }
+
+        .hidden-apps-close:active {
+            transform: scale(0.96);
+        }
+
+        .hidden-apps-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 4px;
+            border-radius: 12px;
+            background: var(--background-secondary);
+        }
+
+        .hidden-app-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            padding: 8px 4px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            background: rgba(40, 40, 40, 0.5);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .hidden-app-item:hover {
+            background: rgba(60, 60, 60, 0.6);
+            transform: scale(1.05);
+        }
+
+        .hidden-app-item:active {
+            transform: scale(0.96);
+        }
+
+        .hidden-app-icon {
+            width: 48px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: var(--accent-color);
+            background: var(--background-secondary);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .hidden-app-name {
+            font-size: 11px;
+            text-align: center;
+            color: var(--text-primary);
+            max-width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding: 2px 4px;
+            line-height: 1.1;
+        }
+
+        .no-hidden-apps {
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 14px;
+            padding: 20px;
+        }
+
+        #installPwa {
+            display: none;
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 12px 24px;
+            background: var(--gradient-button);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-weight: 600;
+            box-shadow: var(--shadow-md);
+            z-index: 1000;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        #installPwa:active {
+            background: var(--gradient-button-pressed);
+            box-shadow: var(--shadow-inner);
+            transform: translateX(-50%) translateY(1px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Статус бар -->
+    <div class="status-bar">
+        <div class="status-bar__content">
+            <div class="status-bar__time">00:00</div>
+            <div class="status-bar__title">
+                <h1 class="page-title">Меню</h1>
+                <input type="text" class="title-input" maxlength="50" placeholder="Введите название">
+            </div>
+            <div class="status-bar__weekday">ПН</div>
+        </div>
+    </div>
+
+    <!-- Основной контейнер -->
+    <main class="main-container">
+        <!-- Кнопки управления -->
+        <div class="control-buttons">
+            <button class="control-button edit" onclick="toggleEditMode()">
+                <i class="fas fa-pencil"></i>
+            </button>
+            <button class="control-button add" onclick="showHiddenApps()">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+
+        <!-- Сетка приложений -->
+        <div class="apps-grid">
+            <!-- Приложения будут добавлены динамически -->
+        </div>
+    </main>
+
+    <!-- Модальное окно редактирования -->
+    <div class="edit-modal">
+        <input type="text" placeholder="Название приложения" class="app-name-input">
+        <div class="icons-grid"></div>
+        <button class="confirm-button">
+            <i class="fas fa-check"></i>
+        </button>
+    </div>
+
+    <!-- Модальное окно скрытых приложений -->
+    <div class="modal-overlay" id="hiddenAppsModalOverlay"></div>
+    <div class="hidden-apps-modal" id="hiddenAppsModal">
+        <div class="hidden-apps-header">
+            <h3 class="hidden-apps-title">Скрытые приложения</h3>
+            <button class="hidden-apps-close" onclick="closeHiddenAppsModal()">×</button>
+        </div>
+        <div class="hidden-apps-grid" id="hiddenAppsGrid">
+            <!-- Скрытые приложения будут добавлены динамически -->
+        </div>
+    </div>
+
+    <!-- Навигационная панель -->
+    <nav class="nav-bar">
+        <a href="Glawnaja.html" class="nav-item">
+            <i class="fas fa-house"></i>
+            <span>Главная</span>
+        </a>
+        <a href="index.html" class="nav-item active">
+            <i class="fas fa-apps"></i>
+            <span>Меню</span>
+        </a>
+        <a href="settings.html" class="nav-item">
+            <i class="fas fa-gear"></i>
+            <span>Настройки</span>
+        </a>
+    </nav>
+
+    <!-- Кнопка установки PWA -->
+    <button id="installPwa">Установить приложение</button>
+
+    <script>
+        // Массив доступных иконок
+        const availableIcons = [
+            // Коммуникация
+            'fa-message', 'fa-envelope', 'fa-comment', 'fa-comments', 'fa-phone', 'fa-video',
+            'fa-microphone', 'fa-headset', 'fa-share', 'fa-paper-plane', 'fa-at', 'fa-hashtag',
+            
+            // Мультимедиа
+            'fa-image', 'fa-camera', 'fa-video', 'fa-film', 'fa-photo-film', 'fa-camera-retro',
+            'fa-music', 'fa-headphones', 'fa-radio', 'fa-podcast', 'fa-guitar', 'fa-drum',
+            'fa-piano', 'fa-microphone-lines', 'fa-record-vinyl', 'fa-tv', 'fa-display',
+            
+            // Файлы и документы
+            'fa-file', 'fa-folder', 'fa-folder-open', 'fa-copy', 'fa-paste', 'fa-file-pdf',
+            'fa-file-word', 'fa-file-excel', 'fa-file-powerpoint', 'fa-file-image', 'fa-file-video',
+            'fa-file-audio', 'fa-file-archive', 'fa-file-code', 'fa-file-lines',
+            
+            // Навигация и карты
+            'fa-location-dot', 'fa-map', 'fa-map-location', 'fa-compass', 'fa-route',
+            'fa-earth-americas', 'fa-globe', 'fa-street-view', 'fa-signs-post', 'fa-map-pin',
+            
+            // Транспорт
+            'fa-car', 'fa-truck', 'fa-motorcycle', 'fa-bicycle', 'fa-plane', 'fa-helicopter',
+            'fa-train', 'fa-bus', 'fa-taxi', 'fa-ship', 'fa-rocket', 'fa-space-shuttle',
+            
+            // Погода и природа
+            'fa-sun', 'fa-moon', 'fa-cloud', 'fa-cloud-sun', 'fa-cloud-moon', 'fa-rainbow',
+            'fa-snowflake', 'fa-umbrella', 'fa-temperature-high', 'fa-wind', 'fa-tree', 'fa-leaf',
+            
+            // Бизнес и финансы
+            'fa-briefcase', 'fa-chart-line', 'fa-chart-pie', 'fa-chart-bar', 'fa-coins',
+            'fa-money-bill', 'fa-credit-card', 'fa-wallet', 'fa-piggy-bank', 'fa-calculator',
+            
+            // Покупки
+            'fa-shopping-cart', 'fa-basket-shopping', 'fa-bag-shopping', 'fa-shop', 'fa-store',
+            'fa-cash-register', 'fa-receipt', 'fa-tag', 'fa-tags', 'fa-barcode',
+            
+            // Еда и напитки
+            'fa-utensils', 'fa-pizza-slice', 'fa-burger', 'fa-hotdog', 'fa-ice-cream',
+            'fa-cake-candles', 'fa-cookie', 'fa-egg', 'fa-coffee', 'fa-mug-hot',
+            'fa-wine-glass', 'fa-martini-glass', 'fa-beer-mug-empty',
+            
+            // Спорт и активность
+            'fa-person-running', 'fa-person-biking', 'fa-person-swimming', 'fa-person-hiking',
+            'fa-dumbbell', 'fa-basketball', 'fa-football', 'fa-baseball', 'fa-volleyball',
+            'fa-golf-ball', 'fa-table-tennis',
+            
+            // Технологии
+            'fa-mobile', 'fa-tablet', 'fa-laptop', 'fa-desktop', 'fa-keyboard', 'fa-mouse',
+            'fa-printer', 'fa-server', 'fa-wifi', 'fa-bluetooth', 'fa-battery-full', 'fa-usb',
+            'fa-microchip', 'fa-memory', 'fa-code', 'fa-terminal',
+            
+            // Инструменты
+            'fa-wrench', 'fa-screwdriver', 'fa-hammer', 'fa-toolbox', 'fa-scissors',
+            'fa-pen', 'fa-pencil', 'fa-ruler', 'fa-compass-drafting', 'fa-paintbrush',
+            
+            // Безопасность
+            'fa-lock', 'fa-unlock', 'fa-key', 'fa-shield', 'fa-user-shield', 'fa-fingerprint',
+            'fa-id-card', 'fa-passport', 'fa-door-closed', 'fa-door-open',
+            
+            // Здоровье
+            'fa-heart', 'fa-stethoscope', 'fa-hospital', 'fa-kit-medical', 'fa-pills',
+            'fa-prescription-bottle', 'fa-syringe', 'fa-brain', 'fa-eye', 'fa-tooth',
+
+            // Material Design иконки
+            'mdi mdi-home', 'mdi mdi-account', 'mdi mdi-cog', 'mdi mdi-bell',
+            'mdi mdi-magnify', 'mdi mdi-heart', 'mdi mdi-star', 'mdi mdi-plus',
+            'mdi mdi-menu', 'mdi mdi-arrow-left', 'mdi mdi-arrow-right',
+            'mdi mdi-chevron-down', 'mdi mdi-dots-vertical', 'mdi mdi-content-save',
+            'mdi mdi-delete', 'mdi mdi-pencil', 'mdi mdi-refresh', 'mdi mdi-check',
+            'mdi mdi-file', 'mdi mdi-folder', 'mdi mdi-file-pdf-box', 'mdi mdi-file-image',
+            'mdi mdi-file-music', 'mdi mdi-email', 'mdi mdi-message', 'mdi mdi-phone',
+            'mdi mdi-video', 'mdi mdi-share'
+        ];
+
+        // Базовые приложения
+        const defaultApps = [
+            { name: 'Мои авто', icon: 'fa-car', link: 'app1.html' },
+            { name: 'Закладки', icon: 'fa-bookmark', link: 'app2.html' },
+            { name: 'Trenk', icon: 'fa-unlock', link: 'app3.html' },
+            { name: 'Гоогле', icon: 'fa-earth-americas', link: 'app4.html' },
+            { name: 'app5', icon: 'fa-bell', link: 'app5.html' },
+            { name: 'app6', icon: 'fa-calendar', link: 'app6.html' },
+            { name: 'app7', icon: 'fa-chart-line', link: 'app7.html' },
+            { name: 'app8', icon: 'fa-clock', link: 'app8.html' },
+            { name: 'app9', icon: 'fa-envelope', link: 'app9.html' },
+            { name: 'app10', icon: 'fa-image', link: 'app10.html' },
+            { name: 'app11', icon: 'fa-map', link: 'app11.html' },
+            { name: 'app12', icon: 'fa-music', link: 'app12.html' },
+            { name: 'app13', icon: 'fa-phone', link: 'app13.html' },
+            { name: 'app14', icon: 'fa-camera', link: 'app14.html' },
+            { name: 'app15', icon: 'fa-video', link: 'app15.html' },
+            { name: 'app16', icon: 'fa-shopping-cart', link: 'app16.html' },
+            { name: 'app17', icon: 'fa-star', link: 'app17.html' },
+            { name: 'app18', icon: 'fa-heart', link: 'app18.html' },
+            { name: 'app19', icon: 'fa-bookmark', link: 'app19.html' },
+            { name: 'app20', icon: 'fa-file', link: 'app20.html' }
+        ];
+
+        let currentEditingApp = null;
+        let isEditMode = false;
+
+        // Инициализация приложения
+        document.addEventListener('DOMContentLoaded', () => {
+            initDateTime();
+            initPageTitle();
+            initNavigation();
+            initEditModal();
+            loadApps();
+        });
+
+        // Обновление времени и даты
+        function initDateTime() {
+            function updateDateTime() {
+                const now = new Date();
+                const timeElement = document.querySelector('.status-bar__time');
+                const weekdayElement = document.querySelector('.status-bar__weekday');
+                
+                // Форматирование времени
+                const hours = String(now.getHours()).padStart(2, '0');
+                const minutes = String(now.getMinutes()).padStart(2, '0');
+                timeElement.textContent = `${hours}:${minutes}`;
+                
+                // Получение дня недели
+                const weekdays = ['ВС', 'ПН', 'ВТ', 'СР', 'ЧТ', 'ПТ', 'СБ'];
+                weekdayElement.textContent = weekdays[now.getDay()];
+            }
+
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+        }
+
+        // Управление заголовком страницы
+        function initPageTitle() {
+            const pageTitle = document.querySelector('.page-title');
+            const titleInput = document.querySelector('.title-input');
+
+            // Загрузка сохраненного заголовка
+            const savedTitle = localStorage.getItem('indexPageTitle');
+            if (savedTitle) {
+                pageTitle.textContent = savedTitle;
+                titleInput.value = savedTitle;
+                document.title = savedTitle;
+            }
+
+            // Редактирование заголовка
+            pageTitle.addEventListener('click', () => {
+                titleInput.value = pageTitle.textContent;
+                pageTitle.style.display = 'none';
+                titleInput.style.display = 'block';
+                titleInput.focus();
+                titleInput.select();
+            });
+
+            // Сохранение изменений
+            function saveTitle() {
+                const newTitle = titleInput.value.trim();
+                if (newTitle) {
+                    pageTitle.textContent = newTitle;
+                    document.title = newTitle;
+                    localStorage.setItem('indexPageTitle', newTitle);
+                }
+                titleInput.style.display = 'none';
+                pageTitle.style.display = 'block';
+            }
+
+            titleInput.addEventListener('blur', saveTitle);
+            titleInput.addEventListener('keyup', (e) => {
+                if (e.key === 'Enter') {
+                    titleInput.blur();
+                }
+            });
+        }
+
+        // Управление навигацией
+        function initNavigation() {
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach((item) => {
+                item.addEventListener('click', (e) => {
+                    localStorage.setItem('lastActivePage', 'index');
+                });
+            });
+        }
+
+        // Обработчики модального окна
+        function initEditModal() {
+            const iconsGrid = document.querySelector('.icons-grid');
+            const confirmButton = document.querySelector('.confirm-button');
+            
+            // Очищаем сетку иконок
+            iconsGrid.innerHTML = '';
+            
+            // Добавляем иконки
+            availableIcons.forEach(icon => {
+                const iconOption = document.createElement('div');
+                iconOption.className = 'icon-option';
+                iconOption.innerHTML = `<i class="fas ${icon}"></i>`;
+                iconOption.setAttribute('data-icon', icon);
+                
+                iconOption.addEventListener('click', () => {
+                    document.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('selected'));
+                    iconOption.classList.add('selected');
+                    if (currentEditingApp) {
+                        const iconElement = currentEditingApp.querySelector('.app-icon i');
+                        iconElement.className = `fas ${icon}`;
+                    }
+                });
+                
+                iconsGrid.appendChild(iconOption);
+            });
+            
+            // Обработчик кнопки подтверждения
+            confirmButton.addEventListener('click', () => {
+                if (currentEditingApp) {
+                    const nameInput = document.querySelector('.app-name-input');
+                    const appName = currentEditingApp.querySelector('.app-name');
+                    const appIcon = currentEditingApp.querySelector('.app-icon i');
+                    const appLink = currentEditingApp.getAttribute('data-link');
+                    
+                    // Сохраняем название и иконку приложения
+                    const appData = {
+                        name: nameInput.value || 'Приложение',
+                        icon: appIcon.className.split(' ')[1],
+                        link: appLink
+                    };
+                    
+                    // Сохраняем в localStorage
+                    const apps = JSON.parse(localStorage.getItem('apps') || '[]');
+                    const appIndex = apps.findIndex(app => app.link === appLink);
+                    
+                    if (appIndex !== -1) {
+                        apps[appIndex] = appData;
+                    } else {
+                        apps.push(appData);
+                    }
+                    
+                    localStorage.setItem('apps', JSON.stringify(apps));
+                    
+                    // Обновляем отображение
+                    appName.textContent = appData.name;
+                    closeEditModal();
+                }
+            });
+        }
+
+        // Открытие модального окна
+        function openEditModal(appItem) {
+            currentEditingApp = appItem;
+            const modal = document.querySelector('.edit-modal');
+            const nameInput = document.querySelector('.app-name-input');
+            
+            // Получаем текущее название приложения
+            const currentName = appItem.querySelector('.app-name').textContent;
+            nameInput.value = currentName;
+            
+            // Получаем текущую иконку
+            const currentIcon = appItem.querySelector('.app-icon i').className.split(' ')[1];
+            
+            // Выделяем текущую иконку в сетке
+            document.querySelectorAll('.icon-option').forEach(opt => {
+                const iconName = opt.getAttribute('data-icon');
+                if (iconName === currentIcon) {
+                    opt.classList.add('selected');
+                } else {
+                    opt.classList.remove('selected');
+                }
+            });
+            
+            modal.classList.add('active');
+            nameInput.focus();
+        }
+
+        // Закрытие модального окна
+        function closeEditModal() {
+            const modal = document.querySelector('.edit-modal');
+            currentEditingApp = null;
+            modal.classList.remove('active');
+        }
+
+        // Загрузка приложений
+        function loadApps() {
+            const appsGrid = document.querySelector('.apps-grid');
+            const savedApps = JSON.parse(localStorage.getItem('apps') || '[]');
+            const hiddenApps = JSON.parse(localStorage.getItem('hiddenApps') || '[]');
+            
+            // Объединяем сохраненные данные с дефолтными
+            let apps = defaultApps.map(defaultApp => {
+                const savedApp = savedApps.find(app => app.link === defaultApp.link);
+                return {
+                    ...(savedApp || defaultApp),
+                    position: savedApp ? savedApp.position : defaultApps.indexOf(defaultApp)
+                };
+            }).filter(app => !hiddenApps.includes(app.link)); // Фильтруем скрытые приложения
+            
+            // Сортируем приложения по сохраненным позициям
+            apps.sort((a, b) => {
+                const posA = a.position ?? Number.MAX_SAFE_INTEGER;
+                const posB = b.position ?? Number.MAX_SAFE_INTEGER;
+                return posA - posB;
+            });
+            
+            // Очищаем сетку
+            appsGrid.innerHTML = '';
+            
+            // Создаем элементы приложений
+            apps.forEach(app => {
+                const appElement = createAppElement(app);
+                appsGrid.appendChild(appElement);
+            });
+        }
+
+        // Создание элемента приложения
+        function createAppElement(app) {
+            const appItem = document.createElement('div');
+            appItem.className = 'app-item';
+            appItem.setAttribute('data-link', app.link);
+            appItem.draggable = true;
+            
+            appItem.innerHTML = `
+                <div class="app-icon">
+                    <i class="fas ${app.icon}"></i>
+                </div>
+                <span class="app-name">${app.name}</span>
+                <button class="delete-button">
+                    <i class="fas fa-times"></i>
+                </button>
+                <button class="edit-button">
+                    <i class="fas fa-pencil"></i>
+                </button>
+            `;
+            
+            // Добавляем обработчики событий
+            const editButton = appItem.querySelector('.edit-button');
+            editButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isEditMode) {
+                    openEditModal(appItem);
+                }
+            });
+            
+            const deleteButton = appItem.querySelector('.delete-button');
+            deleteButton.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if (isEditMode && confirm('Вы уверены, что хотите скрыть это приложение?')) {
+                    // Добавляем приложение в список скрытых
+                    const appLink = appItem.getAttribute('data-link');
+                    hideApp(appLink);
+                }
+            });
+            
+            // Добавляем обработчик клика для перехода
+            appItem.addEventListener('click', () => {
+                if (!isEditMode) {
+                    window.location.href = app.link;
+                }
+            });
+            
+            return appItem;
+        }
+
+        // Переключение режима редактирования
+        function toggleEditMode() {
+            const editButton = document.querySelector('.control-button.edit');
+            isEditMode = !isEditMode;
+            document.body.classList.toggle('edit-mode', isEditMode);
+            
+            if (isEditMode) {
+                editButton.innerHTML = '<i class="fas fa-check"></i>';
+                initDragAndDrop();
+                
+                // Показываем кнопки редактирования
+                document.querySelectorAll('.app-item').forEach(item => {
+                    item.draggable = true;
+                });
+            } else {
+                editButton.innerHTML = '<i class="fas fa-pencil"></i>';
+                disableDragAndDrop();
+                
+                // Скрываем кнопки редактирования
+                document.querySelectorAll('.app-item').forEach(item => {
+                    item.draggable = false;
+                });
+                
+                // Сохраняем состояние после выхода из режима редактирования
+                saveAppsState();
+            }
+        }
+
+        // Скрытие приложения
+        function hideApp(link) {
+            const hiddenApps = JSON.parse(localStorage.getItem('hiddenApps') || '[]');
+            if (!hiddenApps.includes(link)) {
+                // Сохраняем текущее состояние приложения перед скрытием
+                const apps = JSON.parse(localStorage.getItem('apps') || '[]');
+                const appToHide = document.querySelector(`[data-link="${link}"]`);
+                if (appToHide) {
+                    const appData = {
+                        name: appToHide.querySelector('.app-name').textContent,
+                        icon: appToHide.querySelector('.app-icon i').className.split(' ')[1],
+                        link: link
+                    };
+                    
+                    // Обновляем или добавляем данные приложения
+                    const appIndex = apps.findIndex(app => app.link === link);
+                    if (appIndex !== -1) {
+                        apps[appIndex] = appData;
+                    } else {
+                        apps.push(appData);
+                    }
+                    localStorage.setItem('apps', JSON.stringify(apps));
+                }
+                
+                // Добавляем в список скрытых
+                hiddenApps.push(link);
+                localStorage.setItem('hiddenApps', JSON.stringify(hiddenApps));
+                
+                // Обновляем отображение
+                loadApps();
+            }
+        }
+
+        // Восстановление приложения
+        function restoreApp(link) {
+            const hiddenApps = JSON.parse(localStorage.getItem('hiddenApps') || '[]');
+            const index = hiddenApps.indexOf(link);
+            
+            if (index > -1) {
+                // Удаляем из списка скрытых
+                hiddenApps.splice(index, 1);
+                localStorage.setItem('hiddenApps', JSON.stringify(hiddenApps));
+                
+                // Анимация исчезновения
+                const appItem = document.querySelector(`.hidden-app-item[data-link="${link}"]`);
+                if (appItem) {
+                    appItem.style.opacity = '0';
+                    appItem.style.transform = 'scale(0.8)';
+                    setTimeout(() => {
+                        appItem.remove();
+                        loadApps();
+                        
+                        // Проверяем, остались ли еще скрытые приложения
+                        if (hiddenApps.length === 0) {
+                            const grid = document.getElementById('hiddenAppsGrid');
+                            grid.innerHTML = '<div class="no-hidden-apps">Нет скрытых приложений</div>';
+                            setTimeout(closeHiddenAppsModal, 1000);
+                        } else {
+                            // Обновляем отображение скрытых приложений
+                            showHiddenApps();
+                        }
+                    }, 200);
+                }
+            }
+        }
+
+        // Показ скрытых приложений
+        function showHiddenApps() {
+            const modal = document.getElementById('hiddenAppsModal');
+            const overlay = document.getElementById('hiddenAppsModalOverlay');
+            const grid = document.getElementById('hiddenAppsGrid');
+            const hiddenApps = JSON.parse(localStorage.getItem('hiddenApps') || '[]');
+            const savedApps = JSON.parse(localStorage.getItem('apps') || '[]');
+            
+            grid.innerHTML = '';
+            
+            if (hiddenApps.length === 0) {
+                grid.innerHTML = '<div class="no-hidden-apps">Нет скрытых приложений</div>';
+            } else {
+                hiddenApps.forEach(link => {
+                    // Ищем данные приложения сначала в сохраненных, потом в дефолтных
+                    const savedApp = savedApps.find(a => a.link === link);
+                    const defaultApp = defaultApps.find(a => a.link === link);
+                    const app = savedApp || defaultApp;
+                    
+                    if (app) {
+                        const appItem = document.createElement('div');
+                        appItem.className = 'hidden-app-item';
+                        appItem.setAttribute('data-link', app.link);
+                        appItem.innerHTML = `
+                            <div class="hidden-app-icon">
+                                <i class="fas ${app.icon}"></i>
+                            </div>
+                            <span class="hidden-app-name">${app.name}</span>
+                        `;
+                        
+                        // Добавляем эффект при наведении
+                        appItem.addEventListener('mouseover', () => {
+                            appItem.style.transform = 'scale(1.05)';
+                        });
+                        
+                        appItem.addEventListener('mouseout', () => {
+                            appItem.style.transform = 'scale(1)';
+                        });
+                        
+                        // Обработчик клика для восстановления
+                        appItem.addEventListener('click', () => {
+                            appItem.style.transform = 'scale(0.95)';
+                            setTimeout(() => {
+                                restoreApp(app.link);
+                            }, 150);
+                        });
+                        
+                        grid.appendChild(appItem);
+                    }
+                });
+            }
+            
+            modal.classList.add('active');
+            overlay.classList.add('active');
+        }
+
+        // Закрытие модального окна скрытых приложений
+        function closeHiddenAppsModal() {
+            const modal = document.getElementById('hiddenAppsModal');
+            const overlay = document.getElementById('hiddenAppsModalOverlay');
+            
+            modal.classList.remove('active');
+            overlay.classList.remove('active');
+        }
+
+        // Инициализация drag and drop
+        function initDragAndDrop() {
+            const appsGrid = document.querySelector('.apps-grid');
+            const items = appsGrid.getElementsByClassName('app-item');
+            
+            for (const item of items) {
+                item.draggable = true;
+                
+                item.addEventListener('dragstart', (e) => {
+                    item.classList.add('dragging');
+                    e.dataTransfer.effectAllowed = 'move';
+                    
+                    // Создаем призрачный элемент
+                    const ghost = item.cloneNode(true);
+                    ghost.classList.add('drag-ghost');
+                    ghost.style.position = 'absolute';
+                    ghost.style.top = '-1000px';
+                    document.body.appendChild(ghost);
+                    e.dataTransfer.setDragImage(ghost, 40, 40);
+                    
+                    // Удаляем призрачный элемент после начала перетаскивания
+                    setTimeout(() => {
+                        document.body.removeChild(ghost);
+                    }, 0);
+                });
+                
+                item.addEventListener('dragend', () => {
+                    item.classList.remove('dragging');
+                    document.querySelectorAll('.app-item').forEach(app => {
+                        app.classList.remove('drag-over');
+                    });
+                    saveAppsState();
+                });
+                
+                item.addEventListener('dragenter', (e) => {
+                    e.preventDefault();
+                    if (!item.classList.contains('dragging')) {
+                        item.classList.add('drag-over');
+                    }
+                });
+                
+                item.addEventListener('dragleave', () => {
+                    item.classList.remove('drag-over');
+                });
+                
+                item.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    if (!item.classList.contains('dragging')) {
+                        const draggingItem = document.querySelector('.dragging');
+                        const afterElement = getDragAfterElement(appsGrid, e.clientY, e.clientX);
+                        
+                        if (afterElement) {
+                            appsGrid.insertBefore(draggingItem, afterElement);
+                        } else {
+                            appsGrid.appendChild(draggingItem);
+                        }
+                    }
+                });
+            }
+        }
+
+        // Вспомогательная функция для определения позиции при перетаскивании
+        function getDragAfterElement(container, y, x) {
+            const draggableElements = [...container.querySelectorAll('.app-item:not(.dragging)')];
+            
+            return draggableElements.reduce((closest, child) => {
+                const box = child.getBoundingClientRect();
+                const offsetY = y - box.top - box.height / 2;
+                const offsetX = x - box.left - box.width / 2;
+                const offset = Math.sqrt(offsetY * offsetY + offsetX * offsetX);
+                
+                if (offset < closest.offset) {
+                    return { offset: offset, element: child };
+                } else {
+                    return closest;
+                }
+            }, { offset: Number.POSITIVE_INFINITY }).element;
+        }
+
+        // Отключение drag and drop
+        function disableDragAndDrop() {
+            const items = document.getElementsByClassName('app-item');
+            for (const item of items) {
+                item.draggable = false;
+                item.classList.remove('dragging', 'drag-over');
+            }
+        }
+
+        // Сохранение состояния приложений
+        function saveAppsState() {
+            const apps = Array.from(document.querySelectorAll('.app-item')).map((app, index) => {
+                const savedApps = JSON.parse(localStorage.getItem('apps') || '[]');
+                const savedApp = savedApps.find(a => a.link === app.getAttribute('data-link')) || {};
+                
+                return {
+                    ...savedApp,
+                    name: app.querySelector('.app-name').textContent,
+                    icon: app.querySelector('i').className.split(' ').find(cls => cls.startsWith('fa-')),
+                    link: app.getAttribute('data-link'),
+                    position: index
+                };
+            });
+            
+            localStorage.setItem('apps', JSON.stringify(apps));
+        }
+    </script>
+    <script src="/src/scripts/StatusBar.js"></script>
+    <script src="/src/scripts/pwa.js"></script>
+</body>
+</html> 

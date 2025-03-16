@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Шпаргалка по иконкам</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/@mdi/font@7.2.96/css/materialdesignicons.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --background-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #e0e0e0;
+            --border-color: #333;
+            
+            --primary-gradient: linear-gradient(135deg, #6e8efb, #4776e6);
+            --secondary-gradient: linear-gradient(135deg, #ff9966, #ff5e62);
+            --success-gradient: linear-gradient(135deg, #2af598, #009efd);
+            --warning-gradient: linear-gradient(135deg, #ffd452, #ff6b6b);
+            --info-gradient: linear-gradient(135deg, #4facfe, #00f2fe);
+            --dark-gradient: linear-gradient(135deg, #2c3e50, #3498db);
+            
+            --shadow-sm: 0 2px 4px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 8px rgba(0,0,0,0.12);
+            --shadow-lg: 0 8px 16px rgba(0,0,0,0.14);
+            
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            text-shadow: var(--shadow-sm);
+        }
+
+        .category {
+            margin-bottom: 40px;
+            background: var(--surface-color);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category h2 {
+            background: var(--secondary-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .icons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .icon-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .icon-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .icon-item i {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            background: var(--primary-gradient);
+            color: white;
+            text-shadow: var(--shadow-sm);
+        }
+
+        .icon-name {
+            font-family: monospace;
+            font-size: 14px;
+            color: var(--text-color);
+        }
+
+        /* Градиенты для разных категорий */
+        .category.communication i { background: linear-gradient(135deg, #00c6fb, #005bea); }
+        .category.files i { background: linear-gradient(135deg, #f6d365, #fda085); }
+        .category.media i { background: linear-gradient(135deg, #f093fb, #f5576c); }
+        .category.tools i { background: linear-gradient(135deg, #5ee7df, #b490ca); }
+        .category.settings i { background: linear-gradient(135deg, #a8edea, #fed6e3); }
+        .category.security i { background: linear-gradient(135deg, #f6d365, #fda085); }
+        .category.social i { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+        .category.games i { background: linear-gradient(135deg, #fa709a, #fee140); }
+
+        @media (max-width: 600px) {
+            .icons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+            
+            .icon-item {
+                font-size: 14px;
+            }
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .category {
+            animation: fadeIn 0.3s ease-out forwards;
+        }
+
+        .category:nth-child(1) { animation-delay: 0.1s; }
+        .category:nth-child(2) { animation-delay: 0.15s; }
+        .category:nth-child(3) { animation-delay: 0.2s; }
+        .category:nth-child(4) { animation-delay: 0.25s; }
+        .category:nth-child(5) { animation-delay: 0.3s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Шпаргалка по иконкам</h1>
+
+        <!-- Material Design - Основные -->
+        <div class="category">
+            <h2>Material Design - Основные</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="mdi mdi-home"></i>
+                    <span class="icon-name">mdi-home</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-account"></i>
+                    <span class="icon-name">mdi-account</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-cog"></i>
+                    <span class="icon-name">mdi-cog</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-bell"></i>
+                    <span class="icon-name">mdi-bell</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-magnify"></i>
+                    <span class="icon-name">mdi-magnify</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-heart"></i>
+                    <span class="icon-name">mdi-heart</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-star"></i>
+                    <span class="icon-name">mdi-star</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-plus"></i>
+                    <span class="icon-name">mdi-plus</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Material Design - Навигация -->
+        <div class="category">
+            <h2>Material Design - Навигация</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="mdi mdi-menu"></i>
+                    <span class="icon-name">mdi-menu</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-arrow-left"></i>
+                    <span class="icon-name">mdi-arrow-left</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-arrow-right"></i>
+                    <span class="icon-name">mdi-arrow-right</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-chevron-down"></i>
+                    <span class="icon-name">mdi-chevron-down</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-dots-vertical"></i>
+                    <span class="icon-name">mdi-dots-vertical</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Material Design - Действия -->
+        <div class="category">
+            <h2>Material Design - Действия</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="mdi mdi-content-save"></i>
+                    <span class="icon-name">mdi-content-save</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-delete"></i>
+                    <span class="icon-name">mdi-delete</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-pencil"></i>
+                    <span class="icon-name">mdi-pencil</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-refresh"></i>
+                    <span class="icon-name">mdi-refresh</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-check"></i>
+                    <span class="icon-name">mdi-check</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Material Design - Файлы -->
+        <div class="category">
+            <h2>Material Design - Файлы</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="mdi mdi-file"></i>
+                    <span class="icon-name">mdi-file</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-folder"></i>
+                    <span class="icon-name">mdi-folder</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-file-pdf-box"></i>
+                    <span class="icon-name">mdi-file-pdf-box</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-file-image"></i>
+                    <span class="icon-name">mdi-file-image</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-file-music"></i>
+                    <span class="icon-name">mdi-file-music</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Material Design - Коммуникация -->
+        <div class="category">
+            <h2>Material Design - Коммуникация</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="mdi mdi-email"></i>
+                    <span class="icon-name">mdi-email</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-message"></i>
+                    <span class="icon-name">mdi-message</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-phone"></i>
+                    <span class="icon-name">mdi-phone</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-video"></i>
+                    <span class="icon-name">mdi-video</span>
+                </div>
+                <div class="icon-item">
+                    <i class="mdi mdi-share"></i>
+                    <span class="icon-name">mdi-share</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Добавляем существующие категории с Font Awesome -->
+        <!-- Коммуникация -->
+        <div class="category">
+            <h2>Коммуникация</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-message"></i>
+                    <span class="icon-name">fa-message</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span class="icon-name">fa-envelope</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-comment"></i>
+                    <span class="icon-name">fa-comment</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-comments"></i>
+                    <span class="icon-name">fa-comments</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-phone"></i>
+                    <span class="icon-name">fa-phone</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-video"></i>
+                    <span class="icon-name">fa-video</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-microphone"></i>
+                    <span class="icon-name">fa-microphone</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-headset"></i>
+                    <span class="icon-name">fa-headset</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-share"></i>
+                    <span class="icon-name">fa-share</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-paper-plane"></i>
+                    <span class="icon-name">fa-paper-plane</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Транспорт -->
+        <div class="category">
+            <h2>Транспорт</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-car"></i>
+                    <span class="icon-name">fa-car</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-truck"></i>
+                    <span class="icon-name">fa-truck</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-motorcycle"></i>
+                    <span class="icon-name">fa-motorcycle</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-bicycle"></i>
+                    <span class="icon-name">fa-bicycle</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-plane"></i>
+                    <span class="icon-name">fa-plane</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-helicopter"></i>
+                    <span class="icon-name">fa-helicopter</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-train"></i>
+                    <span class="icon-name">fa-train</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-bus"></i>
+                    <span class="icon-name">fa-bus</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-taxi"></i>
+                    <span class="icon-name">fa-taxi</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-ship"></i>
+                    <span class="icon-name">fa-ship</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Файлы и документы -->
+        <div class="category">
+            <h2>Файлы и документы</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-file"></i>
+                    <span class="icon-name">fa-file</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-folder"></i>
+                    <span class="icon-name">fa-folder</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-folder-open"></i>
+                    <span class="icon-name">fa-folder-open</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-copy"></i>
+                    <span class="icon-name">fa-copy</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-file-pdf"></i>
+                    <span class="icon-name">fa-file-pdf</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-file-word"></i>
+                    <span class="icon-name">fa-file-word</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-file-excel"></i>
+                    <span class="icon-name">fa-file-excel</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-file-code"></i>
+                    <span class="icon-name">fa-file-code</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Технологии -->
+        <div class="category">
+            <h2>Технологии</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-mobile"></i>
+                    <span class="icon-name">fa-mobile</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-laptop"></i>
+                    <span class="icon-name">fa-laptop</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-desktop"></i>
+                    <span class="icon-name">fa-desktop</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-keyboard"></i>
+                    <span class="icon-name">fa-keyboard</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-mouse"></i>
+                    <span class="icon-name">fa-mouse</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-wifi"></i>
+                    <span class="icon-name">fa-wifi</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-bluetooth"></i>
+                    <span class="icon-name">fa-bluetooth</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-code"></i>
+                    <span class="icon-name">fa-code</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Инструменты -->
+        <div class="category">
+            <h2>Инструменты</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-wrench"></i>
+                    <span class="icon-name">fa-wrench</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-screwdriver"></i>
+                    <span class="icon-name">fa-screwdriver</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-hammer"></i>
+                    <span class="icon-name">fa-hammer</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-toolbox"></i>
+                    <span class="icon-name">fa-toolbox</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-scissors"></i>
+                    <span class="icon-name">fa-scissors</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Безопасность -->
+        <div class="category">
+            <h2>Безопасность</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-lock"></i>
+                    <span class="icon-name">fa-lock</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-unlock"></i>
+                    <span class="icon-name">fa-unlock</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-key"></i>
+                    <span class="icon-name">fa-key</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-shield"></i>
+                    <span class="icon-name">fa-shield</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-user-shield"></i>
+                    <span class="icon-name">fa-user-shield</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Погода -->
+        <div class="category">
+            <h2>Погода</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-sun"></i>
+                    <span class="icon-name">fa-sun</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-moon"></i>
+                    <span class="icon-name">fa-moon</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-cloud"></i>
+                    <span class="icon-name">fa-cloud</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-cloud-sun"></i>
+                    <span class="icon-name">fa-cloud-sun</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-snowflake"></i>
+                    <span class="icon-name">fa-snowflake</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Мультимедиа -->
+        <div class="category">
+            <h2>Мультимедиа</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-image"></i>
+                    <span class="icon-name">fa-image</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-camera"></i>
+                    <span class="icon-name">fa-camera</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-video"></i>
+                    <span class="icon-name">fa-video</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-film"></i>
+                    <span class="icon-name">fa-film</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-photo-film"></i>
+                    <span class="icon-name">fa-photo-film</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-camera-retro"></i>
+                    <span class="icon-name">fa-camera-retro</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-music"></i>
+                    <span class="icon-name">fa-music</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-headphones"></i>
+                    <span class="icon-name">fa-headphones</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-radio"></i>
+                    <span class="icon-name">fa-radio</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-podcast"></i>
+                    <span class="icon-name">fa-podcast</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-guitar"></i>
+                    <span class="icon-name">fa-guitar</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-drum"></i>
+                    <span class="icon-name">fa-drum</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-piano"></i>
+                    <span class="icon-name">fa-piano</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-microphone-lines"></i>
+                    <span class="icon-name">fa-microphone-lines</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-record-vinyl"></i>
+                    <span class="icon-name">fa-record-vinyl</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Навигация и карты -->
+        <div class="category">
+            <h2>Навигация и карты</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <span class="icon-name">fa-location-dot</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-map"></i>
+                    <span class="icon-name">fa-map</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-map-location"></i>
+                    <span class="icon-name">fa-map-location</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-compass"></i>
+                    <span class="icon-name">fa-compass</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-route"></i>
+                    <span class="icon-name">fa-route</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-earth-americas"></i>
+                    <span class="icon-name">fa-earth-americas</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-globe"></i>
+                    <span class="icon-name">fa-globe</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-street-view"></i>
+                    <span class="icon-name">fa-street-view</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-signs-post"></i>
+                    <span class="icon-name">fa-signs-post</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-map-pin"></i>
+                    <span class="icon-name">fa-map-pin</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Бизнес и финансы -->
+        <div class="category">
+            <h2>Бизнес и финансы</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-briefcase"></i>
+                    <span class="icon-name">fa-briefcase</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-chart-line"></i>
+                    <span class="icon-name">fa-chart-line</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-chart-pie"></i>
+                    <span class="icon-name">fa-chart-pie</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-chart-bar"></i>
+                    <span class="icon-name">fa-chart-bar</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-coins"></i>
+                    <span class="icon-name">fa-coins</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-money-bill"></i>
+                    <span class="icon-name">fa-money-bill</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-credit-card"></i>
+                    <span class="icon-name">fa-credit-card</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-wallet"></i>
+                    <span class="icon-name">fa-wallet</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-piggy-bank"></i>
+                    <span class="icon-name">fa-piggy-bank</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-calculator"></i>
+                    <span class="icon-name">fa-calculator</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Покупки -->
+        <div class="category">
+            <h2>Покупки</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-shopping-cart"></i>
+                    <span class="icon-name">fa-shopping-cart</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span class="icon-name">fa-basket-shopping</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span class="icon-name">fa-bag-shopping</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-shop"></i>
+                    <span class="icon-name">fa-shop</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-store"></i>
+                    <span class="icon-name">fa-store</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-cash-register"></i>
+                    <span class="icon-name">fa-cash-register</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-receipt"></i>
+                    <span class="icon-name">fa-receipt</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-tag"></i>
+                    <span class="icon-name">fa-tag</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-tags"></i>
+                    <span class="icon-name">fa-tags</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-barcode"></i>
+                    <span class="icon-name">fa-barcode</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Еда и напитки -->
+        <div class="category">
+            <h2>Еда и напитки</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-utensils"></i>
+                    <span class="icon-name">fa-utensils</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-pizza-slice"></i>
+                    <span class="icon-name">fa-pizza-slice</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-burger"></i>
+                    <span class="icon-name">fa-burger</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-hotdog"></i>
+                    <span class="icon-name">fa-hotdog</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-ice-cream"></i>
+                    <span class="icon-name">fa-ice-cream</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-cake-candles"></i>
+                    <span class="icon-name">fa-cake-candles</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-cookie"></i>
+                    <span class="icon-name">fa-cookie</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-egg"></i>
+                    <span class="icon-name">fa-egg</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-coffee"></i>
+                    <span class="icon-name">fa-coffee</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-mug-hot"></i>
+                    <span class="icon-name">fa-mug-hot</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-wine-glass"></i>
+                    <span class="icon-name">fa-wine-glass</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-martini-glass"></i>
+                    <span class="icon-name">fa-martini-glass</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-beer-mug-empty"></i>
+                    <span class="icon-name">fa-beer-mug-empty</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Спорт и активность -->
+        <div class="category">
+            <h2>Спорт и активность</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-person-running"></i>
+                    <span class="icon-name">fa-person-running</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-person-biking"></i>
+                    <span class="icon-name">fa-person-biking</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-person-swimming"></i>
+                    <span class="icon-name">fa-person-swimming</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-person-hiking"></i>
+                    <span class="icon-name">fa-person-hiking</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-dumbbell"></i>
+                    <span class="icon-name">fa-dumbbell</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-basketball"></i>
+                    <span class="icon-name">fa-basketball</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-football"></i>
+                    <span class="icon-name">fa-football</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-baseball"></i>
+                    <span class="icon-name">fa-baseball</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-volleyball"></i>
+                    <span class="icon-name">fa-volleyball</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-golf-ball"></i>
+                    <span class="icon-name">fa-golf-ball</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-table-tennis"></i>
+                    <span class="icon-name">fa-table-tennis</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Здоровье -->
+        <div class="category">
+            <h2>Здоровье</h2>
+            <div class="icons-grid">
+                <div class="icon-item">
+                    <i class="fa-solid fa-heart"></i>
+                    <span class="icon-name">fa-heart</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-stethoscope"></i>
+                    <span class="icon-name">fa-stethoscope</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-hospital"></i>
+                    <span class="icon-name">fa-hospital</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-kit-medical"></i>
+                    <span class="icon-name">fa-kit-medical</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-pills"></i>
+                    <span class="icon-name">fa-pills</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-prescription-bottle"></i>
+                    <span class="icon-name">fa-prescription-bottle</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-syringe"></i>
+                    <span class="icon-name">fa-syringe</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-brain"></i>
+                    <span class="icon-name">fa-brain</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-eye"></i>
+                    <span class="icon-name">fa-eye</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-tooth"></i>
+                    <span class="icon-name">fa-tooth</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 
